@@ -1,0 +1,142 @@
+body {
+	margin: 0;
+	color: var(--color-texto);
+	background-color: var(--color-fondo);
+}
+
+body, input, button, a {
+	font-family: sans-serif;
+}
+
+.vista {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	display: flex;
+	flex-direction: column
+}
+
+header {
+	background-color: var(--color-fondo-principal);
+	color: var(--color-principal);
+	padding: 0.5em;
+}
+
+header a, header button {
+	color: var(--color-principal);
+}
+
+header h1 {
+	margin: 0;
+	height: 1.3em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap
+}
+
+.herramientas {
+	display: flex;
+	align-items: center
+}
+
+.herramientas [type=search] {
+	flex-grow: 1
+}
+
+.herramientas .divisor {
+	margin-right: auto
+}
+
+.herramientas button {
+	background-color: var(--color-fondo-principal-button);
+	color: var(- -color-principal);
+	border: none;
+	text-decoration: none;
+	cursor: pointer;
+	padding: 0.5em;
+	text-transform: uppercase;
+	cursor: pointer
+}
+
+.principal {
+	width: 100%;
+	max-width: 600px;
+	margin-left: auto;
+	margin-right: auto;
+	flex-grow: 1;
+	overflow: auto
+}
+
+ol {
+	list-style-type: none;
+	padding: 0
+}
+
+ol li {
+	display: flex
+}
+
+ol li>* {
+	vertical-align: top
+}
+
+ol li figure {
+	width: 50%;
+	margin-right: 0.3em
+}
+
+figure img {
+	max-width: 100%
+}
+
+fieldset {
+	border: none
+}
+
+.error {
+	text-color: var(--color-error);
+}
+
+fieldset .error, fieldset .info {
+	display: block;
+	font-size: small
+}
+
+legend {
+	color: var(--color-secundario);
+	font-size: small
+}
+
+input[type=text], input[type=password], input[type=email], select {
+	display: block;
+	width: 100%
+}
+
+.vacia {
+	text-align: center;
+	font-size: small
+}
+
+footer {
+	text-align: center;
+	font-size: small
+}
+
+nav {
+	display: flex;
+	flex-shrink: 0;
+	background-color: var(--color-fondo-navegacion);
+	overflow: auto
+}
+
+nav * {
+	text-align: center;
+	padding: 0.5em 0.25em;
+	border: none;
+	text-decoration: none;
+	background-color: var(--color-fondo-navegacion);
+	color: var(--color-texto-navegacion);
+	cursor: pointer
+}

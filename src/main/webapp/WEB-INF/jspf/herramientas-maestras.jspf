@@ -1,0 +1,63 @@
+<%@ page pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<header>
+	<div class="herramientas">
+		<button id="cancelar" type="button" title="Cancelar"
+			${empty param.filtro ? 'hidden' : ''}>
+			<i class="material-icons">arrow_back</i>
+		</button>
+		<input name="filtro" type="search" type="button" placeholder="Filtro"
+			value="${param.filtro}" ${empty param.filtro ? 'hidden' : ''}>
+		<span class="divisor"></span>
+		<button id="submit" type="submit" title="Buscar"
+			${empty param.filtro ? 'hidden' : ''}>
+			<i class="material-icons">search</i>
+		</button>
+		<button id="buscar" type="button" title="Buscar"
+			${!empty param.filtro ? 'hidden' : ''}>
+			<i class="material-icons">search</i>
+		</button>
+		<a id="agregar" type="button" title="Agregar"
+			${!empty param.filtro ? 'hidden' : ''}
+			href="${fn:escapeXml(urlAgregar)}"> <i class="material-icons">add</i>
+		</a>
+	</div>
+	<h1>
+		<c:out value="${título}" />
+	</h1>
+</header>
+<script>
+	/** @type {HTMLButtonElement} */
+	const cancelar = document.querySelector("#cancelar");
+	/** @type {HTMLInputElement} */
+	const filtro = document.querySelector("[name=filtro]");
+	/** @type {HTMLButtonElement} */
+	const submit = document.querySelector("#submit");
+	/** @type {HTMLButtonElement} */
+	const buscar = document.querySelector("#buscar");
+	/** @type {HTMLButtonElement} */
+	const agregar = document.querySelector("#agregar");
+	/** @type {HTMLHeadingElement} */
+	const h1 = document.querySelector("#agregar");
+	buscar.addEventListener("click", busca);
+	cancelar.addEventListener("click", cancela);
+	function cancela() {
+		cancelar.hidden = true;
+		filtro.hidden = true;
+		submit.hidden = true;
+		filtro.value = "";
+		buscar.hidden = false;
+		agregar.hidden = false;
+		h1.hidden = false;
+	}
+	function busca() {
+		cancelar.hidden = false;
+		filtro.hidden = false;
+		submit.hidden = false;
+		filtro.value = "";
+		buscar.hidden = true;
+		agregar.hidden = true;
+		h1.hidden = true;
+	}
+</script>

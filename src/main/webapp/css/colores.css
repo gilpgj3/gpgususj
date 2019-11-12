@@ -1,0 +1,11 @@
+:root {
+  --color-fondo: #fafafa;
+  --color-texto: black;
+  --color-error: red;
+  --color-fondo-navegacion: #1A237E;
+  --color-texto-navegacion: white;
+  --color-fondo-principal: #3F51B5;
+  --color-fondo-principal-button: #213086;
+  --color-principal: white;
+  --color-secundario: #FF4081;
+}

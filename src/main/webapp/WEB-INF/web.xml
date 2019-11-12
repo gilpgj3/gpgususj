@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+	version="3.1">
+	<context-param>
+		<description>Nombre del segmento de Google Clod Storage</description>
+		<param-name>SEGMENTO</param-name>
+		<param-value>gpgususj.appspot.com</param-value>
+	</context-param>
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+	<security-constraint>
+		<display-name>Páginas de Administracion de Usuarios</display-name>
+		<web-resource-collection>
+			<web-resource-name>Administración de Usuarios</web-resource-name>
+			<description>Páginas para administrar usuarios</description>
+			<url-pattern>/CtrlUsuarioBusca</url-pattern>
+			<url-pattern>/CtrlUsuarioElimina</url-pattern>
+			<url-pattern>/CtrlUsuarioGuarda</url-pattern>
+			<url-pattern>/CtrlUsuarios</url-pattern>
+			<url-pattern>/FormUsuario.jsp</url-pattern>
+			<url-pattern>/FormUsuarios.jsp</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<description>Estas páginas son para los administradores de usuarios.</description>
+			<role-name>admin</role-name>
+		</auth-constraint>
+		<user-data-constraint>
+			<description> Estas páginas se transmiten encriptadas para que no se vea su contenido al transferir datos por la red. </description>
+			<transport-guarantee>CONFIDENTIAL</transport-guarantee>
+		</user-data-constraint>
+	</security-constraint>
+	<security-constraint>
+		<display-name>Páginas para los que Tengan Rol</display-name>
+		<web-resource-collection>
+			<web-resource-name>Páginas de inicio</web-resource-name>
+			<description>Páginas para los que tengan rol asignado.</description>
+			<url-pattern>/CtrlSesion</url-pattern>
+			<url-pattern>/FormSesion.jsp</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<description>
+        Estas páginas son para cualquier usuario que tenga asignado un rol.
+      </description>
+			<role-name>*</role-name>
+		</auth-constraint>
+	</security-constraint>
+</web-app>
