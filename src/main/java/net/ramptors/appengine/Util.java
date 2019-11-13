@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -31,13 +32,13 @@ import com.google.cloud.firestore.Query;
 import com.google.cloud.storage.Acl;
 import com.google.cloud.storage.Acl.Role;
 import com.google.cloud.storage.Acl.User;
-import com.google.cloud.storage.Blob;
 import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
 
 public class Util {
 	public static final String SEGMENTO = "SEGMENTO";
+	private static final Storage storage = StorageOptions.getDefaultInstance().getService();
 
 	public static void procesa(HttpServlet servlet, HttpServletRequest request, HttpServletResponse response,
 			Exception e) throws ServletException, IOException {
@@ -64,17 +65,14 @@ public class Util {
 	}
 
 	public static String subeImagen(Part part, String segmento, String nombre) throws IOException {
-		final Storage storage = StorageOptions.getDefaultInstance().getService();
-		// Bucket bucket = storage.create(BucketInfo.of(segmento));
-		// Upload a blob to the newly created bucket
-		final BlobInfo blobInfo = BlobInfo.newBuilder(segmento, nombre).build();
-		final Blob blob = storage.create(blobInfo, lee(part.getInputStream()));
-		storage.createAcl(blob.getBlobId(), Acl.of(User.ofAllUsers(), Role.READER));
-		// Create a fixed dedicated URL that points to the GCS hosted file
+		final String fileName = nombre + '.' + new Date().getTime();
+		storage.create(BlobInfo.newBuilder(segmento, fileName)
+				// Modify access list to allow all users with link to read file
+				.setAcl(new ArrayList<>(Arrays.asList(Acl.of(User.ofAllUsers(), Role.READER)))).build(),
+				lee(part.getInputStream()));
 		final ServingUrlOptions opcionesDeImagen = ServingUrlOptions.Builder
-				.withGoogleStorageFileName("/gs/" + segmento + "/" + nombre).secureUrl(true);
+				.withGoogleStorageFileName("/gs/" + segmento + "/" + fileName).secureUrl(true);
 		return ImagesServiceFactory.getImagesService().getServingUrl(opcionesDeImagen);
-
 	}
 
 	public static <T extends Entidad> T getRef(Class<T> tipo, DocumentReference ref) {

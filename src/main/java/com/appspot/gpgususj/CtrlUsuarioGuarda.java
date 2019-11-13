@@ -1,6 +1,7 @@
 package com.appspot.gpgususj;
 
 import static com.appspot.gpgususj.Fire.BD;
+import static net.ramptors.appengine.Util.SEGMENTO;
 import static net.ramptors.appengine.Util.getDocRef;
 import static net.ramptors.appengine.Util.getDocRefs;
 import static net.ramptors.appengine.Util.isNullOrEmpty;
@@ -28,7 +29,6 @@ import net.ramptors.appengine.Util;
 @WebServlet(name = "CtrlUsuarioGuarda", urlPatterns = { "/CtrlUsuarioGuarda" })
 public class CtrlUsuarioGuarda extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final String SEGMENTO = "gpgususj.appspot.com";
 	private static final DaoUsuario dao = new DaoUsuario();
 
 	@Override
@@ -53,8 +53,9 @@ public class CtrlUsuarioGuarda extends HttpServlet {
 					dao.actualiza(modelo);
 				}
 				if (imagenPart != null) {
+					final String segmento = getServletContext().getInitParameter(SEGMENTO);
 					final Map<String, Object> map = new HashMap<String, Object>();
-					map.put("imagen", subeImagen(imagenPart, SEGMENTO, id));
+					map.put("imagen", subeImagen(imagenPart, segmento, id));
 					BD.collection("Usuario").document(id).update(map).get();
 				}
 			}

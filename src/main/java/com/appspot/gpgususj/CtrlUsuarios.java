@@ -6,6 +6,7 @@ import static net.ramptors.appengine.Util.getArr;
 import static net.ramptors.appengine.Util.getRef;
 import static net.ramptors.appengine.Util.preparaParaBúsqueda;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -36,6 +37,7 @@ public class CtrlUsuarios extends CtrlFiltro {
 		final List<InfoRol> roles = getArr(InfoRol.class, modelo.getRoles());
 		final Map<String, Object> map = modelo.toMap();
 		map.put("id", doc.getId());
+		map.put("imagen", modelo.getImagen());
 		map.put("pasatiempo", pasatiempo == null ? "" : pasatiempo.getNombre());
 		map.put("roles", roles.stream().map(rol -> rol.getId()).collect(joining(", ")));
 		map.put("filtro", preparaParaBúsqueda(modelo.getFiltro()));
